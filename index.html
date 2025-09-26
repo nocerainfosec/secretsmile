@@ -1,0 +1,108 @@
+<script type="text/javascript">
+    var gk_isXlsx = false;
+    var gk_xlsxFileLookup = {};
+    var gk_fileData = {};
+    function filledCell(cell) {
+        return cell !== '' && cell != null;
+    }
+    function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                    row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                    headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+    }
+</script>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <title>SecretSmile - Ocultando Mensagens em Emojis usando Emoji Smuggling.</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/favicon.svg" />
+</head>
+<body>
+    <header>
+        <h1>SecretSmile</h1>
+         <p>Um sorriso pode esconder muito mais do que parece! Oculte suas mensagens em um emoji, com um toque de magia.</br>
+         Dica: copie o favicon desta página, talvez tenha algo secreto escondido nele.</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <label for="emojiInput">Escolha seu emoji (para codificação):</label>
+            <div class="emoji-picker">
+                <input type="text" id="emojiInput" placeholder="Selecione um emoji (ex: 🎩)" value="🎩" readonly>
+                <div id="emojiList" class="emoji-list">
+                    <span onclick="selectEmoji('🎩')">🎩</span>
+                    <span onclick="selectEmoji('😊')">😊</span>
+                    <span onclick="selectEmoji('😎')">😎</span>
+                    <span onclick="selectEmoji('🦁')">🦁</span>
+                    <span onclick="selectEmoji('🌟')">🌟</span>
+                    <span onclick="selectEmoji('🚀')">🚀</span>
+                    <span onclick="selectEmoji('🍎')">🍎</span>
+                    <span onclick="selectEmoji('🎉')">🎉</span>
+                    <span onclick="selectEmoji('🐶')">🐶</span>
+                    <span onclick="selectEmoji('🌈')">🌈</span>
+                    <span onclick="selectEmoji('⚽')">⚽</span>
+                    <span onclick="selectEmoji('🎸')">🎸</span>
+                    <span onclick="selectEmoji('🍕')">🍕</span>
+                    <span onclick="selectEmoji('🌍')">🌍</span>
+                </div>
+            </div>
+
+            <label for="inputText">Digite sua mensagem (para codificação):</label>
+            <textarea id="inputText" placeholder="Digite o texto a ser escondido..."></textarea>
+
+            <div class="button-group">
+                <button id="encodeBtn" onclick="encodeText()">Codificar em Emoji</button>
+                <button id="decodeBtn" onclick="decodeText()">Decodificar do Emoji</button>
+                <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()">Copiar Resultado</button>
+            </div>
+
+            <div id="loader" class="loader"></div>
+
+            <label for="outputText">Resultado (cole um emoji aqui para decodificar):</label>
+            <textarea id="outputText" placeholder="Seu emoji aparecerá aqui..."></textarea>
+
+            <div id="log" class="log"></div>
+        </div>
+
+        <div class="history card">
+            <h3>Histórico de Mensagens</h3>
+            <ul id="historyList"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
