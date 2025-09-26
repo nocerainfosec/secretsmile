@@ -10,7 +10,6 @@
 - **Seletor de Emojis Estilo WhatsApp**: Escolha entre 15 emojis (ex.: 🎩, 😎, 🌟) para codificação, com um design de grade responsivo.
 - **Detecção Automática de Emoji para Decodificação**: Cole uma string de emoji, e o aplicativo usa o primeiro caractere como emoji portador — sem necessidade de seleção manual.
 - **Suporte à Área de Transferência**: Copie a string de emoji codificada com um clique, com feedback visual (botão fica verde).
-- **Design Responsivo**: Otimizado para dispositivos móveis com um tema escuro inspirado em chatbots modernos.
 - **Compatibilidade entre Navegadores**: Funciona perfeitamente em Chrome, Firefox, Safari e Edge.
 - **Sem Dependências Externas**: Totalmente independente (exceto pela fonte Open Sans opcional do Google Fonts).
 
