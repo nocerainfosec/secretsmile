@@ -1,6 +1,6 @@
 # SecretSmile
 
-![Captura de Tela do SecretSmile](screenshot.png)
+![Captura de Tela do SecretSmile](demo.png)
 
 **SecretSmile** é um aplicativo web que permite ocultar mensagens secretas dentro de emojis usando caracteres de largura zero. Codifique seu texto em um emoji, copie para a área de transferência e compartilhe discretamente. Decodifique o emoji para revelar a mensagem oculta. Com uma interface escura e elegante inspirada em chatbots e um seletor de emojis estilo WhatsApp, é divertido e funcional, otimizado para dispositivos móveis e desktop.
 
