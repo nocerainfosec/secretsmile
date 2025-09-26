@@ -88,9 +88,12 @@ Contribuições são bem-vindas! Para contribuir:
 
 Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](LICENSE) para detalhes.
 
-## Agradecimentos
+## Fontes de Estudo
 
 - Inspirado em esteganografia e interfaces modernas de chatbots.
+- [EMBRACETHERED](https://embracethered.com/blog/posts/2024/hiding-and-finding-text-with-unicode-tags/)
+- [ARXIV](https://arxiv.org/html/2411.01077v1)
+- [PaulButler](https://paulbutler.org/2025/smuggling-arbitrary-data-through-an-emoji/)
 
 ---
 
